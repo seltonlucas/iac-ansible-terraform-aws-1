@@ -14,20 +14,14 @@ provider "aws" {
   region  = var.regiao_aws
 }
 
-resource "aws_instance" "app_server" {
-  ami           = "ami-0db245b76e5c21ca1"
+resource "aws_launch_template" "maquina" {
+  image_id           = "ami-0db245b76e5c21ca1"
   instance_type = var.instancia
   key_name      = var.chave
-  # user_data     = <<-EOF
-  #             #!/bin/bash
-  #             cd /home/ubuntu
-  #             echo "<h1>Criado pelo Terraform TM</h1>" > index.html
-  #             nohup busybox httpd -f -p 8080 &
-  #             EOF 
-
   tags = {
     Name = "Terraform Ansible Python"
   }
+  security_group_names = [var.grupoDeSeguranca]
 }
 
 resource "aws_key_pair" "chaveSSH" {
