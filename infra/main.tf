@@ -32,3 +32,13 @@ resource "aws_key_pair" "chaveSSH" {
 output "IP_Publico" {
   value = aws_instance.app_server.public_ip
 }
+
+resource "aws_autoscaling_group" "grupo" {
+  name = var.nomeGrupo
+  max_size = var.maximo
+  min_size = var.minimo
+  launch_template {
+    id = aws_launch_template.maquina.id
+    version = "$latest"
+  }
+}

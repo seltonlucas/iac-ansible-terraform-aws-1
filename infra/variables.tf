@@ -11,3 +11,15 @@ variable "grupoDeSeguranca" {
   type = string
 
 }
+
+variable "minimo" {
+  type = number
+}
+
+variable "minimo" {
+  type = number
+}
+
+variable "nomeGrupo" {
+  type = string
+}
