@@ -29,11 +29,8 @@ resource "aws_key_pair" "chaveSSH" {
   public_key = file("${var.chave}.pub")
 }
 
-output "IP_Publico" {
-  value = aws_instance.app_server.public_ip
-}
-
 resource "aws_autoscaling_group" "grupo" {
+  availability_zones = [ "${var.regiao_aws}a" ]
   name = var.nomeGrupo
   max_size = var.maximo
   min_size = var.minimo

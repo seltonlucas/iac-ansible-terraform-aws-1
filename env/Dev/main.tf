@@ -8,7 +8,3 @@ module "aws-dev" {
   maximo = 1
   nomeGrupo = "Dev"
 }
-
-output "IP" {
-  value = module.aws-dev.IP_Publico
-}
