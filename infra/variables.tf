@@ -12,7 +12,7 @@ variable "grupoDeSeguranca" {
 
 }
 
-variable "minimo" {
+variable "maximo" {
   type = number
 }
 

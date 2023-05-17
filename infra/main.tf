@@ -22,7 +22,7 @@ resource "aws_launch_template" "maquina" {
     Name = "Terraform Ansible Python"
   }
   security_group_names = [var.grupoDeSeguranca]
-  user_data = filebase64(ansible.sh)
+  user_data = filebase64("ansible.sh")
 }
 
 resource "aws_key_pair" "chaveSSH" {
@@ -31,28 +31,28 @@ resource "aws_key_pair" "chaveSSH" {
 }
 
 resource "aws_autoscaling_group" "grupo" {
-  availability_zone = [ "${var.regiao_aws}a" ]
+  availability_zones = [ "${var.regiao_aws}a" ]
   name = var.nomeGrupo
   max_size = var.maximo
   min_size = var.minimo
   launch_template {
     id = aws_launch_template.maquina.id
-    version = "$latest"
+    version = "$Latest"
   }
   target_group_arns = [ aws_lb_target_group.alvoLoadBalancer.arn ]
 }
 
 resource "aws_default_subnet" "subnet_1" {
-  availability_zone = [ "${var.regiao_aws}a" ]
+  availability_zone = "${var.regiao_aws}a"
 }
 
 resource "aws_default_subnet" "subnet_2" {
-  availability_zone = [ "${var.regiao_aws}b" ]
+  availability_zone = "${var.regiao_aws}b" 
 }
 
 resource "aws_lb" "loadBalancerProducao" {
   internal = false
-  subnets = [ aws_default_subnet.subnet_1, aws_default_subnet.subnet_2 ]
+  subnets = [ aws_default_subnet.subnet_1.id, aws_default_subnet.subnet_2.id ]
 }
 
 resource "aws_lb_target_group" "alvoLoadBalancer" {
