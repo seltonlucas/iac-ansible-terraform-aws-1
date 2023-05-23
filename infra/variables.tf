@@ -23,3 +23,7 @@ variable "minimo" {
 variable "nomeGrupo" {
   type = string
 }
+
+variable "producao" {
+  type = bool
+}
